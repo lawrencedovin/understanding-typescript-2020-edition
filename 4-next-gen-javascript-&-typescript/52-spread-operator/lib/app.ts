@@ -1,3 +1,4 @@
+
 window.onload = function() {
 
   const add = (a:number, b: number = 1) => a + b;
@@ -16,5 +17,12 @@ window.onload = function() {
   const activeHobbies = ['Hiking'];
 
   activeHobbies.push(...hobbies);
+
+  const person = {
+    name: 'Lawrence',
+    age: 27
+  }
+
+  const person2 = {...person};
 
 }
