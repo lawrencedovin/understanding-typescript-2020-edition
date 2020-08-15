@@ -16,14 +16,13 @@ abstract class Department {
     console.log(this.employees.length);
     console.log(this.employees);
   }
-  
 }
 
 class ITDepartment extends Department{
   admins: string[];
   private static instance: ITDepartment;
   // static means you don't instatiate a new ITDepartment Object
-  
+
   private constructor(id: string,  admins: string[]) {
     super(id, 'IT');
     this.admins = admins;
