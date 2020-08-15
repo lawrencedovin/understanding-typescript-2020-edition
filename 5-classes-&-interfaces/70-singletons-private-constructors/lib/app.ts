@@ -21,9 +21,20 @@ abstract class Department {
 
 class ITDepartment extends Department{
   admins: string[];
-  constructor(id: string,  admins: string[]) {
+  private static instance: ITDepartment;
+  // static means you don't instatiate a new ITDepartment Object
+  
+  private constructor(id: string,  admins: string[]) {
     super(id, 'IT');
     this.admins = admins;
+  }
+
+  static getInstance() {
+    if (ITDepartment.instance) {
+      return this.instance;
+    }
+    this.instance = new ITDepartment('d2', []);
+    return this.instance;
   }
 
   describe() {
@@ -31,7 +42,7 @@ class ITDepartment extends Department{
   }
 }
 
-const it = new ITDepartment("d1", ['Lawrence']);
+const it = ITDepartment.getInstance();
 
 it.addEmployee("Julie");
 

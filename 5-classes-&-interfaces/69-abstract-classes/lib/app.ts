@@ -1,13 +1,11 @@
 
-class Department {
-  protected employees: string[] = [];
+abstract class Department {
+  private employees: string[] = [];
 
-  constructor(private readonly id: string, public name: string) {
+  constructor(protected readonly id: string, public name: string) {
   }
 
-  describe(this: Department) {
-    console.log(`Department: (${this.id}): ${this.name}`);
-  }
+  abstract describe(this: Department) : void;
 
   addEmployee(employee: string){
     // Validation etc.
@@ -21,52 +19,22 @@ class Department {
   
 }
 
-class AccountingDepartment extends Department {
-  private lastReport: string;
-
-  get mostRecentReport() {
-    if(this.lastReport) {
-      return this.lastReport;
-    }
-    throw new Error("No report found.");
+class ITDepartment extends Department{
+  admins: string[];
+  constructor(id: string,  admins: string[]) {
+    super(id, 'IT');
+    this.admins = admins;
   }
 
-  set mostRecentReport(value: string) {
-    if (!value) {
-      throw new Error('Please pass in a valid value');
-    }
-    this.addReport(value);
-  }
-
-  constructor(id: string, private reports: string[]) {
-    super(id, 'Accounting');
-    this.lastReport = reports[0];
-  }
-
-  addEmployee(employee: string) {
-    if (employee === 'Lawrence') {
-      return;
-    }
-    this.employees.push(employee);
-    // Adds an Employee if not Lawrence
-  }
-
-  addReport(text: string) {
-    this.reports.push(text);
-    this.lastReport = text;
-  }
-
-  printReports() {
-    console.log(this.reports);
+  describe() {
+    console.log('IT Department - ID: ' + this.id);
   }
 }
 
-const accounting = new AccountingDepartment('d2', []);
+const it = new ITDepartment("d1", ['Lawrence']);
 
-accounting.addReport("Lawrence is still pogi.");
+it.addEmployee("Julie");
 
-console.log(accounting.mostRecentReport);
+it.describe(); 
+it.printEmployeeInformation();
 
-accounting.mostRecentReport = "Year End Report";
-
-accounting.printReports();
